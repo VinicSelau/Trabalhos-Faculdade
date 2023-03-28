@@ -1,12 +1,18 @@
 import random
-
 tamanho_vetor = 50
-tamanho_rand  = 100
+tamanho_rand = 100
 
+# define o vetor passando a função random.sample(número aleátorio sem duplicados),
+# gera um número aleátorio de 1 ao tamanho_rand + 1 com o tamanho definido pelo tamanho_vetor.
 vetor = random.sample(range(1, tamanho_rand + 1), tamanho_vetor)
+
+# ordena em order crescente.
+vetor.sort()
+
 print(vetor)
 elemento = int(input("Digite o elemento a ser buscado: "))
 
+# Verifica se o elemento inserido está dentro do array.
 if elemento in vetor:
     indice = vetor.index(elemento)
     print(f'O elemento {elemento} está na posição {indice} do vetor.')
