@@ -1,0 +1,14 @@
+import random
+
+tamanho_vetor = 50
+tamanho_rand  = 100
+
+vetor = random.sample(range(1, tamanho_rand + 1), tamanho_vetor)
+print(vetor)
+elemento = int(input("Digite o elemento a ser buscado: "))
+
+if elemento in vetor:
+    indice = vetor.index(elemento)
+    print(f'O elemento {elemento} está na posição {indice} do vetor.')
+else:
+    print(f'O elemento {elemento} não está presente no vetor.')
