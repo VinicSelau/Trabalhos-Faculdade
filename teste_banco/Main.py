@@ -54,7 +54,7 @@ class Main:
             print("1. Ver saldo")
             print("2. Depositar")
             print("3. Sacar")
-            print("4. Transferência")
+            print("4. Transferir")
             print("5. Voltar ao menu principal")
 
             opcao = input("Escolha uma opção: ")
@@ -66,7 +66,7 @@ class Main:
             elif opcao == "3":
                 self.sacar(conta)
             elif opcao == "4":
-                self.transferir()
+                self.transferir(conta)
             elif opcao == "5":
                 break
             else:
@@ -88,27 +88,24 @@ class Main:
         else:
             print("\nSaldo insuficiente para saque. Tente novamente.\n")
 
-    #def transferir(self):
-    #    if self.pessoa_logada:
-    #        numero_conta_destino = input("Digite o número da conta de destino: ")
-    #        valor = float(input("Digite o valor da transferência: "))
-#
-    #        conta_origem = self.banco.pegar_conta(self.pessoa_logada.numero_conta, self.pessoa_logada.senha)
-    #        conta_destino = self.banco.pegar_conta(numero_conta_destino, None)
-#
-    #        if conta_destino:
-    #            if conta_origem.saldo >= valor:
-    #                conta_origem.saldo -= valor
-    #                conta_destino.saldo += valor
-    #                print(
-    #                    f"\nTransferência realizada com sucesso!\nSaldo atual da conta {conta_origem.numero_conta}: {conta_origem.saldo}\n")
-    #            else:
-    #                print("\nSaldo insuficiente para realizar a transferência.\n")
-    #        else:
-    #            print("\nConta de destino não encontrada.\n")
-    #    else:
-    #        print("\nFaça o login para acessar essa opção.\n")
+    def transferir(self, conta_origem):
+        numero_conta_destino = input("Digite o número da conta de destino: ")
+        valor = float(input("Digite o valor a ser transferido: R$ "))
 
+        conta_destino = self.banco.pegar_conta_transferencia(numero_conta_destino)
+
+        if conta_destino is None:
+            print("\nConta de destino não encontrada. Tente novamente.\n")
+            return
+
+        if conta_origem.saldo < valor:
+            print("\nSaldo insuficiente para transferência. Tente novamente.\n")
+            return
+
+        conta_origem.sacar(valor)
+        conta_destino.depositar(valor)
+
+        print(f"\nTransferência de R$ {valor:.2f} realizada com sucesso para a conta de {conta_destino.pessoa.nome}!\n")
 
 if __name__ == "__main__":
     app = Main()
